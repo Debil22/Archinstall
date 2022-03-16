@@ -1,5 +1,5 @@
 #!/bin/bash
-sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
+sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk /dev/sda
   g # clear the in memory partition table
   n # new partition
   1 # partition number 1
@@ -29,7 +29,7 @@ mount /dev/sda3 /mnt
 mkdir /mnt/boot
 mount /dev/sda2 /mnt/boot
 clear
-echo y | pacstrap -i /mnt base base-devel linux-zen linux-zen-headers linux-firmware dosfstools btrfs-progs intel-ucode iucode-tool nano
+pacstrap -i /mnt base base-devel linux-zen linux-zen-headers linux-firmware dosfstools btrfs-progs intel-ucode iucode-tool nano
 clear
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
@@ -37,8 +37,8 @@ ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 hwclock --systohc
 timedatectl set-ntp yes
 cat >  /etc/locale.gen << EOF
-en_US.UTF-8
-ru_RU.UTF-8
+en_US.UTF-8 UTF-8
+ru_RU.UTF-8 UTF-8
 EOF
 locale-gen
 echo LANG=ru_RU.UTF-8  cat > /etc/locale.conf # LANG=ru_RU.UTF-8
@@ -47,14 +47,14 @@ KEYMAP=ru
 FONT=cyr-sun16
 EOF
 echo arch | cat > /etc/hostname # arch
-cat > /ect/hosts << EOF
+cat > /etc/hosts << EOF
 127.0.0.1  localhost
 ::1        localhost
 127.0.0.1 arch.localdomain  arch
 EOF
 mkinitcpio -P
 passwd
-echo y | pacman -S grub efibootmgr dhcpcd dhclietn networkmanager
+echo y | pacman -S grub efibootmgr dhcpcd dhclient networkmanager
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 exit
