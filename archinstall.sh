@@ -41,7 +41,7 @@ en_US.UTF-8 UTF-8
 ru_RU.UTF-8 UTF-8
 EOF
 locale-gen
-echo LANG=ru_RU.UTF-8  cat > /etc/locale.conf # LANG=ru_RU.UTF-8
+echo LANG=ru_RU.UTF-8 | cat > /etc/locale.conf # LANG=ru_RU.UTF-8
 cat > /etc/vconsole.conf << EOF # KEYMAP=ru FONT=cyr-sun16
 KEYMAP=ru
 FONT=cyr-sun16
