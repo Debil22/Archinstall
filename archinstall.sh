@@ -42,7 +42,7 @@ ru_RU.UTF-8 UTF-8
 EOF
 locale-gen
 echo LANG=ru_RU.UTF-8  cat > /etc/locale.conf # LANG=ru_RU.UTF-8
-cat > /etc/vcosnloe.conf << EOF # KEYMAP=ru FONT=cyr-sun16
+cat > /etc/vconsloe.conf << EOF # KEYMAP=ru FONT=cyr-sun16
 KEYMAP=ru
 FONT=cyr-sun16
 EOF
